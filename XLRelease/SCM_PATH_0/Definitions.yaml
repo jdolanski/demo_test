@@ -1,6 +1,6 @@
 # Exported from:        http://Jans-MBP.home:5516/
 # Release version:      10.0.0-20210203-123974
-# Date created:         Thu Mar 11 13:11:59 CET 2021
+# Date created:         Thu Mar 11 14:23:16 CET 2021
 
 ---
 apiVersion: xl-release/v1
@@ -16,6 +16,24 @@ spec:
   branch: main
   username: jdolanski
   password: !value "git_JGitConnectorConfig_jgit_connector_password"
+- template: commit template
+  scheduledStartDate: 2021-03-11T09:00:00+01:00
+  phases:
+  - phase: New Phase
+    tasks:
+    - name: do commit
+      type: xlrelease.ScriptTask
+      script: "folderId = getCurrentRelease().findFolderId()\nversion = releaseVariables['version'].value\n\
+        response = folderVersioningResource.createVersion(folderId, version)\nprint\
+        \ response\nresult = True"
+    - name: wait
+      type: xlrelease.Task
+  variables:
+  - type: xlrelease.StringVariable
+    key: version
+  scriptUsername: admin
+  scriptUserPassword: !value "xlrelease_Release_commit_template_scriptUserPassword"
+  riskProfile: Default risk profile
 - template: new template
   scheduledStartDate: 2021-03-11T09:00:00+01:00
   phases:
