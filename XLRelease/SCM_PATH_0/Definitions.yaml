@@ -1,0 +1,26 @@
+# Exported from:        http://Jans-MBP.home:5516/
+# Release version:      10.0.0-20210203-123974
+# Date created:         Thu Mar 11 13:11:59 CET 2021
+
+---
+apiVersion: xl-release/v1
+kind: Templates
+metadata: {}
+spec:
+- name: scm versioning
+  type: xlrelease.FolderVersioningConfig
+  scmPath: SCM_PATH_0
+- name: jgit connector
+  type: git.JGitConnectorConfig
+  url: https://github.com/jdolanski/demo_test
+  branch: main
+  username: jdolanski
+  password: !value "git_JGitConnectorConfig_jgit_connector_password"
+- template: new template
+  scheduledStartDate: 2021-03-11T09:00:00+01:00
+  phases:
+  - phase: New Phase
+    tasks:
+    - name: a
+      type: xlrelease.Task
+  riskProfile: Default risk profile
